@@ -4,7 +4,7 @@ public partial class MainPage : ContentPage
 {
 	const int gravidade = 1;
 	const int tempoentreframes=25;
-	bool estamorto = true;
+	bool estamorto = false;
 	double LarguraJanela = 0;
 	double AlturaJanela = 0;
 	int velocidade = 20;
@@ -18,15 +18,23 @@ public partial class MainPage : ContentPage
 	{
 		imgPersonagem.TranslationY +=gravidade;
 	}
-
+    
 	async Task Desenha()
 	{
-		while (estamorto)
+		while (!estamorto)
 		{
 			AplicarGravidade();
-			await Task.Delay(tempoentreframes);
 			GerenciaCanos();
+			if (VerificaColisao());
+
+			{
+				estamorto=true;
+				frameGameOver.IsVisible=true;
+				break;
+			}
+			
 		}
+		await Task.Delay(tempoentreframes);
 	}
 	
 	void onGameOverClicked(object s, TappedEventArgs e)
@@ -54,9 +62,42 @@ public partial class MainPage : ContentPage
 		imgMorrinhoBaixo.TranslationX -=velocidade;
 		if(imgMorrinhoBaixo.TranslationX<-LarguraJanela)
 		{
-			imgMorrinhoBaixo.TranslationX =0;
-			ImgMorrinhoCima.TranslationX =0;
+			imgMorrinhoBaixo.TranslationX =20;
+			ImgMorrinhoCima.TranslationX =20;
 		}
 	}
-}
+	
+	bool VerificaColisaoTeto()
+	{
+		var minY =-AlturaJanela/2;
+		if(imgPersonagem.TranslationY <=minY)
+		    return true;
+		else
+		    return false;
+	}
+	bool VerificaColisaoChao()
+	{
+		var maxY=AlturaJanela/2 - imgMorrinhoBaixo.HeightRequest;
+		if(imgPersonagem.TranslationY >=maxY)
+		   return true;
+		else
+		    return false;
+
+	}
+	bool VerificaColisao()
+	{
+		if(!estamorto)
+		{
+			if(VerificaColisaoTeto() ||
+			   VerificaColisaoChao());
+		}
+		{
+		return true;
+		
+		}
+	}
+	
+		
+	}
+
 

@@ -23,7 +23,7 @@
     <Image Source="chao.jpg"
            VerticalOptions="End"
            HorizontalOptions="Fill"/>
-    <Frame IsVisible="true"
+    <Frame IsVisible="false"
            x:Name="frameGameOver"
            BackgroundColor="Transparent">
            <Frame.GestureRecognizers>
