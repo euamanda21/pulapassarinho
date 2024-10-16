@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="pulapassarinho.MainPage"
              Shell.NavBarIsVisible="false">
+
 <Grid>
     <Image Source="fundo.jpg"
         Aspect="AspectFill"/>
@@ -14,7 +15,7 @@
            VerticalOptions="Start"
            HorizontalOptions="End"
            HeightRequest="280"
-           x:Name="ImgMorrinhoCima"/>
+           x:Name="imgMorrinhoCima"/>
     <Image Source="morrinho.jpg"
            VerticalOptions="End"
            HorizontalOptions="End"
@@ -31,7 +32,12 @@
            </Frame.GestureRecognizers>
            <Image Source="gameover.jpg"
                   x:Name="estaMorto"/>
-           </Frame>           
+           </Frame> 
+     <Grid>
+         <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="ongridclicked"/>
+         </Grid.GestureRecognizers>
+     </Grid>          
     
 
 </Grid>

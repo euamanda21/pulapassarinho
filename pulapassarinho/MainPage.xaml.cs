@@ -8,6 +8,11 @@ public partial class MainPage : ContentPage
 	double LarguraJanela = 0;
 	double AlturaJanela = 0;
 	int velocidade = 20;
+	const int forcaPulo =30;
+	const int maxTempoPulando =3;
+	bool estaPulando =false;
+	int tempoPulando =0;
+	const int aberturaMinima =200;
 
 
 	public MainPage()
@@ -23,15 +28,37 @@ public partial class MainPage : ContentPage
 	{
 		while (!estamorto)
 		{
+			if(estaPulando)
+			   AplicaPulo();
+			else
+			
 			AplicarGravidade();
 			GerenciaCanos();
 			if (VerificaColisao());
+			
+			
 
 			{
 				estamorto=true;
 				frameGameOver.IsVisible=true;
 				break;
 			}
+
+	void AplicaPulo()
+	{
+		imgPersonagem.TranslationY -=forcaPulo;
+		tempoPulando++;
+		if(tempoPulando >=maxTempoPulando)
+		{
+			estaPulando =false;
+			tempoPulando=0;
+		}
+	}
+
+	 void OnGridClicked(object s,TappedEventArgs a)
+	 {
+		estaPulando =true;
+	 }
 			
 		}
 		await Task.Delay(tempoentreframes);
@@ -56,14 +83,20 @@ public partial class MainPage : ContentPage
 		LarguraJanela = w;
 		AlturaJanela = h;
 	}
+	
 	void GerenciaCanos()
 	{
-		ImgMorrinhoCima.TranslationX -=velocidade;
+		imgMorrinhoCima.TranslationX -=velocidade;
 		imgMorrinhoBaixo.TranslationX -=velocidade;
 		if(imgMorrinhoBaixo.TranslationX<-LarguraJanela)
 		{
-			imgMorrinhoBaixo.TranslationX =20;
-			ImgMorrinhoCima.TranslationX =20;
+			imgMorrinhoBaixo.TranslationX =0;
+			imgMorrinhoCima.TranslationX =0;
+
+			var AlturaMax =-100;
+			var AlturaMin =-imgMorrinhoBaixo.HeightRequest;
+			imgMorrinhoCima.TranslationY =Random.Shared.Next((int)AlturaMin,(int)AlturaMax);
+			imgMorrinhoBaixo.TranslationY=imgMorrinhoCima.TranslationY+aberturaMinima +imgMorrinhoBaixo.HeightRequest;
 		}
 	}
 	
@@ -96,6 +129,7 @@ public partial class MainPage : ContentPage
 		
 		}
 	}
+	
 	
 		
 	}
