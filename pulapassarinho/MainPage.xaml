@@ -4,42 +4,56 @@
              x:Class="pulapassarinho.MainPage"
              Shell.NavBarIsVisible="false">
 
-<Grid>
-    <Image Source="fundo.jpg"
-        Aspect="AspectFill"/>
-    <Image Source="papagaio1.png"
-        HeightRequest="50"
-        WidthRequest="50"
-        x:Name="imgPersonagem"/>
-    <Image Source="morrinhocima.jpg"
-           VerticalOptions="Start"
-           HorizontalOptions="End"
-           HeightRequest="280"
-           x:Name="imgMorrinhoCima"/>
-    <Image Source="morrinho.jpg"
-           VerticalOptions="End"
-           HorizontalOptions="End"
-           HeightRequest="280"
-           x:Name="imgMorrinhoBaixo"/>
-    <Image Source="chao.jpg"
-           VerticalOptions="End"
-           HorizontalOptions="Fill"/>
-    <Frame IsVisible="false"
-           x:Name="frameGameOver"
-           BackgroundColor="Transparent">
-           <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="onGameOverClicked"/>
-           </Frame.GestureRecognizers>
-           <Image Source="gameover.jpg"
-                  x:Name="estaMorto"/>
-           </Frame> 
-     <Grid>
-         <Grid.GestureRecognizers>
-            <TapGestureRecognizer Tapped="ongridclicked"/>
-         </Grid.GestureRecognizers>
-     </Grid>          
-    
+       <Grid>
+              <Image Source="fundo.jpg"
+                     Aspect="AspectFill"/>
+              <Image Source="papagaio1.png"
+                     HeightRequest="50"
+                     WidthRequest="50"
+                     x:Name="imgPersonagem"/>
 
-</Grid>
+              <Image Source="morrinhocima.jpg"
+                     VerticalOptions="Start"
+                     HorizontalOptions="End"
+                     HeightRequest="280"
+                     x:Name="imgMorrinhoCima"/>
+
+              <Image Source="morrinho.jpg"
+                     VerticalOptions="End"
+                     HorizontalOptions="End"
+                     HeightRequest="280"
+                     x:Name="imgMorrinhoBaixo"/>
+
+              <Image Source="chao.jpg"
+                     VerticalOptions="End"
+                     HorizontalOptions="Fill"/>
+
+              <Frame IsVisible="false"
+                     x:Name="frameGameOver"
+                     BackgroundColor="Transparent">
+
+                     <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="onGameOverClicked"/>
+                     </Frame.GestureRecognizers>
+
+                     <Image Source="gameover.jpg"
+                            x:Name="estaMorto"/>
+              </Frame>
+              <Grid>
+                     <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ongridclicked"/>
+                     </Grid.GestureRecognizers>
+              </Grid>
+              
+              <Frame x:Name="pontuacao"
+                     VerticalOptions="Start"
+                     HorizontalOptions="End"
+                     Margin="10"/>
+                     
+              <Label Text="Score"
+                     TextColor="Black"/>
+
+              </Frame>
+       </Grid>
 
 </ContentPage>

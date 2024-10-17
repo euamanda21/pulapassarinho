@@ -3,70 +3,72 @@
 public partial class MainPage : ContentPage
 {
 	const int gravidade = 1;
-	const int tempoentreframes=25;
+	const int tempoentreframes = 25;
 	bool estamorto = false;
 	double LarguraJanela = 0;
 	double AlturaJanela = 0;
 	int velocidade = 20;
-	const int forcaPulo =30;
-	const int maxTempoPulando =3;
-	bool estaPulando =false;
-	int tempoPulando =0;
-	const int aberturaMinima =200;
+	const int forcaPulo = 30;
+	const int maxTempoPulando = 3;
+	bool estaPulando = false;
+	int tempoPulando = 0;
+	const int aberturaMinima = 200;
+	int score = 0;
 
 
 	public MainPage()
 	{
 		InitializeComponent();
 	}
-    void AplicarGravidade()
+	void AplicarGravidade()
 	{
-		imgPersonagem.TranslationY +=gravidade;
+		imgPersonagem.TranslationY += gravidade;
 	}
-    
+
 	async Task Desenha()
 	{
 		while (!estamorto)
 		{
-			if(estaPulando)
-			   AplicaPulo();
+			if (estaPulando)
+				AplicaPulo();
 			else
-			
-			AplicarGravidade();
+
+				AplicarGravidade();
 			GerenciaCanos();
-			if (VerificaColisao());
-			
-			
+			if (VerificaColisao()) ;
+
+
 
 			{
-				estamorto=true;
-				frameGameOver.IsVisible=true;
+				estamorto = true;
+				frameGameOver.IsVisible = true;
 				break;
 			}
 
-	void AplicaPulo()
-	{
-		imgPersonagem.TranslationY -=forcaPulo;
-		tempoPulando++;
-		if(tempoPulando >=maxTempoPulando)
-		{
-			estaPulando =false;
-			tempoPulando=0;
-		}
-	}
+			void AplicaPulo()
+			{
+				imgPersonagem.TranslationY -= forcaPulo;
+				tempoPulando++;
+				if (tempoPulando >= maxTempoPulando)
+				{
+					estaPulando = false;
+					tempoPulando = 0;
+				}
+			}
 
-	 void OnGridClicked(object s,TappedEventArgs a)
-	 {
-		estaPulando =true;
-	 }
-			
+			void OnGridClicked(object s, TappedEventArgs a)
+			{
+				estaPulando = true;
+			}
+
 		}
 		await Task.Delay(tempoentreframes);
 	}
-	
+
 	void onGameOverClicked(object s, TappedEventArgs e)
 	{
 		frameGameOver.IsVisible = false;
+		estamorto = false;
 		Inicializar();
 		Desenha();
 	}
@@ -77,61 +79,63 @@ public partial class MainPage : ContentPage
 		imgPersonagem.TranslationY = 0;
 	}
 
-    protected void OnSizeAllocated (double w, double h)
+	protected void OnSizeAllocated(double w, double h)
 	{
-		base.OnSizeAllocated(w,h);
+		base.OnSizeAllocated(w, h);
 		LarguraJanela = w;
 		AlturaJanela = h;
 	}
-	
+
 	void GerenciaCanos()
 	{
-		imgMorrinhoCima.TranslationX -=velocidade;
-		imgMorrinhoBaixo.TranslationX -=velocidade;
-		if(imgMorrinhoBaixo.TranslationX<-LarguraJanela)
+		imgMorrinhoCima.TranslationX -= velocidade;
+		imgMorrinhoBaixo.TranslationX -= velocidade;
+		if (imgMorrinhoBaixo.TranslationX < -LarguraJanela)
 		{
-			imgMorrinhoBaixo.TranslationX =0;
-			imgMorrinhoCima.TranslationX =0;
+			imgMorrinhoBaixo.TranslationX = 0;
+			imgMorrinhoCima.TranslationX = 0;
 
-			var AlturaMax =-100;
-			var AlturaMin =-imgMorrinhoBaixo.HeightRequest;
-			imgMorrinhoCima.TranslationY =Random.Shared.Next((int)AlturaMin,(int)AlturaMax);
-			imgMorrinhoBaixo.TranslationY=imgMorrinhoCima.TranslationY+aberturaMinima +imgMorrinhoBaixo.HeightRequest;
+			var AlturaMax = -100;
+			var AlturaMin = -imgMorrinhoBaixo.HeightRequest;
+			imgMorrinhoCima.TranslationY = Random.Shared.Next((int)AlturaMin, (int)AlturaMax);
+			imgMorrinhoBaixo.TranslationY = imgMorrinhoCima.TranslationY + aberturaMinima + imgMorrinhoBaixo.HeightRequest;
+			score++;
+			LabelScore.Text = "Canos:" + score.ToString("D3");
 		}
 	}
-	
+
 	bool VerificaColisaoTeto()
 	{
-		var minY =-AlturaJanela/2;
-		if(imgPersonagem.TranslationY <=minY)
-		    return true;
+		var minY = -AlturaJanela / 2;
+		if (imgPersonagem.TranslationY <= minY)
+			return true;
 		else
-		    return false;
+			return false;
 	}
 	bool VerificaColisaoChao()
 	{
-		var maxY=AlturaJanela/2 - imgMorrinhoBaixo.HeightRequest;
-		if(imgPersonagem.TranslationY >=maxY)
-		   return true;
+		var maxY = AlturaJanela / 2 - imgMorrinhoBaixo.HeightRequest;
+		if (imgPersonagem.TranslationY >= maxY)
+			return true;
 		else
-		    return false;
+			return false;
 
 	}
 	bool VerificaColisao()
 	{
-		if(!estamorto)
+		if (!estamorto)
 		{
-			if(VerificaColisaoTeto() ||
-			   VerificaColisaoChao());
+			if (VerificaColisaoTeto() ||
+			   VerificaColisaoChao()) ;
 		}
 		{
-		return true;
-		
+			return true;
+
 		}
 	}
-	
-	
-		
-	}
+
+
+
+}
 
 
