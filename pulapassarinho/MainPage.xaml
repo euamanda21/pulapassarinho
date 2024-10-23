@@ -36,26 +36,29 @@
               <Frame IsVisible="false"
                      x:Name="frameGameOver"
                      BackgroundColor="Transparent">
-
-                     <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="onGameOverClicked"/>
-                     </Frame.GestureRecognizers>
-
+              
                      <Image Source="gameover.jpg"
                             x:Name="estaMorto"/>
               
-              <Grid>
+              
+              <Frame x:Name="pontuacao"
+                     VerticalOptions="Start"
+                     HorizontalOptions="End"
+                     Margin="10"/ > 
+
+                <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="onGameOverClicked"/>
+                     </Frame.GestureRecognizers>
+
+             </Frame>
+
+                <Grid>
                      <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnGridClicked"/>
                      </Grid.GestureRecognizers>
               </Grid>
               
-              <Frame x:Name="pontuacao"
-                     VerticalOptions="Start"
-                     HorizontalOptions="End"
-                     Margin="10"/>
-              
-              </Frame>
        </Grid>
+       
 
 </ContentPage>
